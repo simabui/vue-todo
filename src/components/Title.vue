@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
-    <img alt="Vue logo" src="../assets/logo.png" class="logo__img">
-    <h1>To-Do</h1>
+    <img alt="Vue logo" src="../assets/vuelogo.svg" class="logo__img">
+    <h1>To-Do List</h1>
   </div>
 </template>
 
@@ -19,6 +19,10 @@ export default {
     &__img{
       width: 70px;
       height: auto;
+    }
+    h1{
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
     }
   }
 </style>

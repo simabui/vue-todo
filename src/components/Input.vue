@@ -1,5 +1,5 @@
 <template>
-  <input v-bind:placeholder="placeholder" />
+  <input v-bind:placeholder="placeholder" v-bind:type="type"  v-bind:value="value" class="input"/>
 </template>
 
 <script>
@@ -10,12 +10,20 @@ export default {
       type: String,
       default: "input",
     },
-    name: {
+    type: {
       type: String,
-      default: "name",
+      default: "text",
     },
+    value: {
+      type: String,
+      default: "",
+    }
   },
 };
 </script>
 
-<style scoped></style>
+<style  lang="scss" scoped>
+.input{
+  width: 100%;
+}
+</style>
