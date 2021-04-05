@@ -2,7 +2,9 @@
   <div id="app">
     <Title />
     <div class="container">
-      <Form />
+      <div class="todo">
+        <Form />
+      </div>
     </div>
   </div>
 </template>
@@ -30,8 +32,7 @@ export default {
   margin-top: 10px;
 }
 
-body{
+body {
   background: rebeccapurple;
 }
-
 </style>

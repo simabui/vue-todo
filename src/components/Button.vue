@@ -6,22 +6,14 @@
 
 <script>
 export default {
-  name: 'Button',
+  name: "Button",
   props: {
     type: {
-      type:String,
-      default:'button'
-    }
+      type: String,
+      default: "button",
+    },
   },
-  created() {
-
-  },
-  mounted() {
-    console.log('mounted')
-  }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
