@@ -1,5 +1,5 @@
 <template>
-  <input v-bind:placeholder="placeholder" v-bind:type="type" v-bind:value="value" class="input" />
+  <input v-bind:placeholder="placeholder" v-bind:type="type" v-bind:value="value" v-on:input="onChange" class="input" />
 </template>
 
 <script>
@@ -17,6 +17,11 @@ export default {
     value: {
       type: String,
       default: "",
+    },
+  },
+  methods: {
+    onChange(e) {
+      this.$emit("input", e.target.value);
     },
   },
 };

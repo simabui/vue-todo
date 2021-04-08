@@ -1,6 +1,6 @@
 <template>
   <form class="form" v-on:submit.prevent="onSubmit">
-    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" />
+    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" />
     <span v-if="errors.length" class="form__error">Input is empty</span>
     <Button type="submit" class="form__button">></Button>
   </form>
@@ -22,15 +22,21 @@ export default {
     };
   },
   methods: {
-    onSubmit: function(e) {
-      this.todo = e.target.todo.value;
-      this.checkForm();
+    onSubmit: function() {
+      const isValid = this.checkForm();
+      if (isValid) {
+        console.log({ todo: this.todo });
+      }
     },
     checkForm: function() {
       this.errors = [];
 
-      if (!this.todo) this.errors.push("Name of todo is required");
-      if (this.todo) return;
+      if (!this.todo) {
+        this.errors.push("Name of todo is required");
+        return false;
+      }
+
+      if (this.todo) return true;
     },
   },
 };
