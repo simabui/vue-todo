@@ -1,6 +1,6 @@
 <template>
   <form class="form" v-on:submit.prevent="onSubmit">
-    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" />
+    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" type="input" test="teasd" />
     <span v-if="errors.length" class="form__error">Input is empty</span>
     <Button type="submit" class="form__button">></Button>
   </form>
@@ -9,6 +9,8 @@
 <script>
 import Input from "./Input";
 import Button from "./Button";
+import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "Form",
   components: {
@@ -21,11 +23,19 @@ export default {
       todo: null,
     };
   },
+  computed: {
+    // spread store states
+    ...mapState(["todos"]),
+  },
   methods: {
+    // spread store mutations
+    ...mapMutations(["addToDo"]),
     onSubmit: function() {
       const isValid = this.checkForm();
       if (isValid) {
-        console.log({ todo: this.todo });
+        // add to store
+        this.addToDo({ todo: this.todo });
+        console.log(this.todos);
       }
     },
     checkForm: function() {
@@ -36,7 +46,7 @@ export default {
         return false;
       }
 
-      if (this.todo) return true;
+      return true;
     },
   },
 };
