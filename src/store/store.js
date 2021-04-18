@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { ADD_TO_DO } from "./mutations";
+import types from "./mutations";
 
 Vue.use(Vuex);
 
@@ -9,7 +9,7 @@ const store = new Vuex.Store({
     todos: [],
   },
   mutations: {
-    [ADD_TO_DO](state, payload) {
+    [types.ADD_TO_DO](state, payload) {
       state.todos.push(payload);
     },
   },

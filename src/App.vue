@@ -4,6 +4,7 @@
     <div class="container">
       <div class="todo">
         <Form />
+        <ToDoList />
       </div>
     </div>
   </div>
@@ -12,12 +13,14 @@
 <script>
 import Title from "./components/Title";
 import Form from "./components/Form";
+import ToDoList from "./components/todo/ToDoList";
 
 export default {
   name: "App",
   components: {
     Title,
     Form,
+    ToDoList,
   },
 };
 </script>

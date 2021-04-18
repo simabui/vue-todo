@@ -2,14 +2,17 @@
   <form class="form" v-on:submit.prevent="onSubmit">
     <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" type="input" test="teasd" />
     <span v-if="errors.length" class="form__error">Input is empty</span>
-    <Button type="submit" class="form__button">></Button>
+    <Button type="submit" class="form__button">
+      <i class="fas fa-arrow-right"></i>
+    </Button>
   </form>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import { v4 as uuidv4 } from "uuid";
 import Input from "./Input";
 import Button from "./Button";
-import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "Form",
@@ -34,8 +37,10 @@ export default {
       const isValid = this.checkForm();
       if (isValid) {
         // add to store
-        this.addToDo({ todo: this.todo });
-        console.log(this.todos);
+        this.addToDo({
+          todo: this.todo,
+          id: uuidv4(),
+        });
       }
     },
     checkForm: function() {

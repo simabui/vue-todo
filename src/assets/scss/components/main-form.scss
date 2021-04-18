@@ -16,12 +16,6 @@
     font-weight: 700;
     font-size: 20px;
     transition: background 0.2s linear;
-
-    &:focus,
-    &:hover {
-      outline: none;
-      background: #7e7e7e;
-    }
   }
 
   &__error {
