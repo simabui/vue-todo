@@ -1,30 +1,39 @@
 <template>
   <div class="todo__item">
-    <span>{{ item }}</span>
+    <span>{{ todo.text }}</span>
     <div class="icons-menu">
-      <!-- FIXME: fix checkmark for many todos -->
-      <!-- TODO: add onDelete  -->
       <input type="checkbox" id="checkmark" class="todo__checkmark" />
-      <label class="label-container" for="checkmark">
+      <label class="label-container" for="checkmark" v-on:click="handleClick">
         <span class="checkmark">
-          <span class="checkmark__icon">
+          <span class="checkmark__icon" :class="todo.completed && 'checkmark__icon-completed'">
             <i class="fas fa-check"></i>
           </span>
         </span>
       </label>
-      <span class="trash">
+      <span class="trash" v-on:click="handleRemove">
         <i class="fas fa-trash"></i>
       </span>
     </div>
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "ToDoItem",
   inheritAttrs: false,
   props: {
-    item: {
-      type: String,
+    todo: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    ...mapMutations(["setCompleted", "removeToDo"]),
+    handleClick() {
+      this.setCompleted({ id: this.todo.id });
+    },
+    handleRemove() {
+      this.removeToDo({ id: this.todo.id });
     },
   },
 };
@@ -71,6 +80,10 @@ export default {
 
     &__icon {
       display: none;
+
+      &-completed {
+        display: inline-block;
+      }
     }
   }
 
@@ -78,13 +91,7 @@ export default {
     color: rebeccapurple;
   }
 }
-input:checked ~ .label-container {
-  .checkmark {
-    &__icon {
-      display: block;
-    }
-  }
-}
+
 .trash {
   cursor: pointer;
 

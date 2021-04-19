@@ -1,6 +1,6 @@
 <template>
   <div class="todo__list">
-    <ToDoItem v-for="item in todos" v-bind:key="item.id" :item="item.todo" />
+    <ToDoItem v-for="todo in todos" v-bind:key="todo.id" :todo="todo" />
   </div>
 </template>
 

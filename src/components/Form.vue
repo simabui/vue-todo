@@ -38,7 +38,9 @@ export default {
       if (isValid) {
         // add to store
         this.addToDo({
-          todo: this.todo,
+          text: this.todo,
+          completed: false,
+          priority: "normal",
           id: uuidv4(),
         });
       }
