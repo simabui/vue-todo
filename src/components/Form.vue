@@ -40,7 +40,7 @@ export default {
         this.addToDo({
           text: this.todo,
           completed: false,
-          priority: "normal",
+          priority: "low",
           id: uuidv4(),
         });
       }

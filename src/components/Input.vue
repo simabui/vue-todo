@@ -49,6 +49,7 @@ export default {
   width: 100%;
   border: transparent;
   border-bottom: 1px solid #000;
+  padding-bottom: 5px;
 
   &:focus {
     outline: transparent;

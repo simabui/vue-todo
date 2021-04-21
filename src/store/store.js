@@ -21,6 +21,14 @@ const store = new Vuex.Store({
       state.todos.splice(index, 1);
     },
   },
+  getters: {
+    todosCount: (state) => {
+      return state.todos.length;
+    },
+    completedCount: (state) => {
+      return state.todos.filter((todo) => todo.completed).length;
+    },
+  },
 });
 
 export default store;

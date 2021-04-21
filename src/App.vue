@@ -4,6 +4,7 @@
     <div class="container">
       <div class="todo">
         <Form />
+        <Statistic />
         <ToDoList />
       </div>
     </div>
@@ -14,6 +15,7 @@
 import Title from "./components/Title";
 import Form from "./components/Form";
 import ToDoList from "./components/todo/ToDoList";
+import Statistic from "./components/Statistic";
 
 export default {
   name: "App",
@@ -21,6 +23,7 @@ export default {
     Title,
     Form,
     ToDoList,
+    Statistic,
   },
 };
 </script>
