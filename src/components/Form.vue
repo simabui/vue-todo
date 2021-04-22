@@ -43,6 +43,7 @@ export default {
           priority: "low",
           id: uuidv4(),
         });
+        this.todo = "";
       }
     },
     checkForm: function() {

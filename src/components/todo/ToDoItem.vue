@@ -1,11 +1,14 @@
 <template>
-  <div class="todo__item">
+  <li class="todo__item">
     <span class="todo__text">{{ todo.text }}</span>
     <div class="todo__menu">
       <p class="todo__priority" :class="'todo__priority-' + todo.priority">{{ todo.priority }} Priority</p>
       <div class="icons-menu">
+        <span class="edit">
+          <i class="fas fa-edit"></i>
+        </span>
         <input type="checkbox" id="checkmark" class="todo__checkmark" />
-        <label class="label-container" for="checkmark" v-on:click="handleClick">
+        <label class="label-container" for="checkmark" v-on:click="handleComplete">
           <span class="checkmark">
             <span class="checkmark__icon" :class="todo.completed && 'checkmark__icon-completed'">
               <i class="fas fa-check"></i>
@@ -17,7 +20,7 @@
         </span>
       </div>
     </div>
-  </div>
+  </li>
 </template>
 <script>
 import { mapMutations } from "vuex";
@@ -32,7 +35,7 @@ export default {
   },
   methods: {
     ...mapMutations(["setCompleted", "removeToDo"]),
-    handleClick() {
+    handleComplete() {
       this.setCompleted({ id: this.todo.id });
     },
     handleRemove() {
@@ -46,10 +49,8 @@ export default {
   &__item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin: auto;
     max-width: 900px;
-
     &:not(:last-child) {
       margin-bottom: 30px;
     }
@@ -60,15 +61,28 @@ export default {
   &__priority {
     margin: 0;
     text-transform: capitalize;
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
     &-low {
       &:before {
-        content: "";
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
         background-color: #5e72e4;
-        margin-right: 10px;
+      }
+    }
+    &-medium {
+      &:before {
+        background-color: #ffbb33;
+      }
+    }
+    &-high {
+      &:before {
+        background-color: #f5365c;
       }
     }
   }
@@ -136,5 +150,12 @@ export default {
       color: #ff0000;
     }
   }
+}
+
+.edit {
+  font-size: 18px;
+  margin-right: 10px;
+  color: rebeccapurple;
+  cursor: pointer;
 }
 </style>
