@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Modal ref="modal" />
     <Title />
     <div class="container">
       <div class="todo">
@@ -16,6 +17,7 @@ import Title from "./components/Title";
 import Form from "./components/Form";
 import ToDoList from "./components/todo/ToDoList";
 import Statistic from "./components/Statistic";
+import Modal from "./components/Modal";
 
 export default {
   name: "App",
@@ -24,6 +26,7 @@ export default {
     Form,
     ToDoList,
     Statistic,
+    Modal,
   },
 };
 </script>

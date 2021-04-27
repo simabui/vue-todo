@@ -4,7 +4,7 @@
     <div class="todo__menu">
       <p class="todo__priority" :class="'todo__priority-' + todo.priority">{{ todo.priority }} Priority</p>
       <div class="icons-menu">
-        <span class="edit">
+        <span class="edit" v-on:click="openModal">
           <i class="fas fa-edit"></i>
         </span>
         <input type="checkbox" id="checkmark" class="todo__checkmark" />
@@ -41,6 +41,10 @@ export default {
     handleRemove() {
       this.removeToDo({ id: this.todo.id });
     },
+    openModal() {
+      console.log(this.$root);
+      this.$root.emit("openModal");
+    },
   },
 };
 </script>
@@ -57,6 +61,9 @@ export default {
   }
   &__text {
     color: #8b8b8b;
+    flex-basis: 55%;
+    overflow: hidden;
+    text-align: left;
   }
   &__priority {
     margin: 0;
