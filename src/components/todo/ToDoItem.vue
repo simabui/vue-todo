@@ -4,7 +4,7 @@
     <div class="todo__menu">
       <p class="todo__priority" :class="'todo__priority-' + todo.priority">{{ todo.priority }} Priority</p>
       <div class="icons-menu">
-        <span class="edit" v-on:click="openModal">
+        <span class="edit" v-on:click="editItem">
           <i class="fas fa-edit"></i>
         </span>
         <input type="checkbox" id="checkmark" class="todo__checkmark" />
@@ -34,16 +34,16 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["setCompleted", "removeToDo"]),
+    ...mapMutations(["setCompleted", "removeToDo", "openModal", "getToDo"]),
     handleComplete() {
       this.setCompleted({ id: this.todo.id });
     },
     handleRemove() {
       this.removeToDo({ id: this.todo.id });
     },
-    openModal() {
-      console.log(this.$root);
-      this.$root.emit("openModal");
+    editItem() {
+      this.getToDo({ id: this.todo.id });
+      this.openModal();
     },
   },
 };

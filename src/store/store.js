@@ -7,6 +7,10 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     todos: [],
+    todoItem: {},
+    modal: {
+      show: false,
+    },
   },
   mutations: {
     [types.ADD_TO_DO](state, payload) {
@@ -19,6 +23,16 @@ const store = new Vuex.Store({
     [types.REMOVE_TODO](state, payload) {
       const index = state.todos.findIndex((todo) => todo.id === payload.id);
       state.todos.splice(index, 1);
+    },
+    [types.PICK_TODO_ITEM](state, payload) {
+      const todo = state.todos.find((todo) => todo.id === payload.id);
+      state.todoItem = todo;
+    },
+    [types.OPEN_MODAL](state) {
+      state.modal.show = true;
+    },
+    [types.CLOSE_MODAL](state) {
+      state.modal.show = false;
     },
   },
   getters: {

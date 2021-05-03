@@ -1,5 +1,5 @@
 <template>
-  <button v-bind:type="type">
+  <button v-bind:type="type" v-on:click="onClick">
     <slot></slot>
   </button>
 </template>
@@ -11,6 +11,10 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    onClick: {
+      type: Function,
+      default: () => null,
     },
   },
 };

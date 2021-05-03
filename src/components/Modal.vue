@@ -1,13 +1,19 @@
 <template>
   <transition name="fade">
-    <div class="overlay" v-if="show" v-on:click="closeModal">
+    <div class="overlay" v-if="modal.show" v-on:click="closeOnOverlay">
       <div class="modal">
+        <div class="modal__close" v-on:click="closeModal">
+          <i class="fas fa-times"></i>
+        </div>
         <h2 class="modal__title">Task Detail</h2>
         <span class="line"></span>
-        <div class="modal__body"></div>
+        <div class="modal__body">
+          <!-- TODO: finish form  -->
+          <textarea>todoItem.text</textarea>
+        </div>
         <div class="modal__footer">
           <div class="modal__controls">
-            <Button class="modal__button modal__button-close" v-on:click="closeModal">
+            <Button class="modal__button modal__button-close" :onClick="closeModal">
               CLOSE
             </Button>
             <Button class="modal__button modal__button-edit">
@@ -21,22 +27,21 @@
 </template>
 <script>
 import Button from "./Button";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: {
     Button,
   },
   name: "Modal",
-  data() {
-    return {
-      show: false,
-    };
+  computed: {
+    ...mapState(["modal", "todoItem"]),
   },
   methods: {
-    closeModal() {
-      this.show = false;
-    },
-    openModal() {
-      this.$root.on("openModal", () => (this.show = true));
+    ...mapMutations(["closeModal"]),
+    closeOnOverlay(e) {
+      if (e.target === e.currentTarget) {
+        this.closeModal();
+      }
     },
   },
 };
@@ -106,6 +111,13 @@ export default {
     &:active {
       transform: translateY(4px);
     }
+  }
+
+  &__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
   }
 }
 
