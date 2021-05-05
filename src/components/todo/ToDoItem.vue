@@ -20,6 +20,7 @@
         </span>
       </div>
     </div>
+    <span v-if="todo.pending" class="todo__pending"><i class="far fa-clock"></i></span>
   </li>
 </template>
 <script>
@@ -55,6 +56,7 @@ export default {
     justify-content: space-between;
     margin: auto;
     max-width: 900px;
+    position: relative;
     &:not(:last-child) {
       margin-bottom: 30px;
     }
@@ -104,6 +106,15 @@ export default {
     cursor: pointer;
     height: 0;
     width: 0;
+  }
+  &__pending {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+
+    .fa-clock {
+      color: #ff0000;
+    }
   }
 }
 

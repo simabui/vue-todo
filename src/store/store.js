@@ -1,3 +1,5 @@
+/* disable eslint */
+
 import Vue from "vue";
 import Vuex from "vuex";
 import types from "./mutations";
@@ -28,6 +30,16 @@ const store = new Vuex.Store({
       const todo = state.todos.find((todo) => todo.id === payload.id);
       state.todoItem = todo;
     },
+    [types.UPDATE_TODO](state, payload) {
+      const { text, priority, pending } = payload;
+      state.todos.forEach((todo) => {
+        if (todo.id === payload.id) {
+          todo.text = text;
+          todo.priority = priority;
+          todo.pending = pending;
+        }
+      });
+    },
     [types.OPEN_MODAL](state) {
       state.modal.show = true;
     },
@@ -41,6 +53,9 @@ const store = new Vuex.Store({
     },
     completedCount: (state) => {
       return state.todos.filter((todo) => todo.completed).length;
+    },
+    totalPending: (state) => {
+      return state.todos.filter((todo) => todo.pending).length;
     },
   },
 });

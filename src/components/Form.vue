@@ -1,6 +1,6 @@
 <template>
   <form class="form" v-on:submit.prevent="onSubmit">
-    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" type="input" test="teasd" />
+    <Input placeholder="Enter New To Do" name="todo" id="todo" :value="todo" v-model="todo" type="input" />
     <span v-if="errors.length" class="form__error">Input is empty</span>
     <Button type="submit" class="form__button">
       <i class="fas fa-arrow-right"></i>
@@ -40,6 +40,7 @@ export default {
         this.addToDo({
           text: this.todo,
           completed: false,
+          pending: false,
           priority: "low",
           id: uuidv4(),
         });

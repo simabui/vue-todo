@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Modal ref="modal" />
+    <transition name="modal">
+      <Modal v-if="modal.show" />
+    </transition>
     <Title />
     <div class="container">
       <div class="todo">
@@ -18,7 +20,7 @@ import Form from "./components/Form";
 import ToDoList from "./components/todo/ToDoList";
 import Statistic from "./components/Statistic";
 import Modal from "./components/Modal";
-
+import { mapState } from "vuex";
 export default {
   name: "App",
   components: {
@@ -27,6 +29,9 @@ export default {
     ToDoList,
     Statistic,
     Modal,
+  },
+  computed: {
+    ...mapState(["modal"]),
   },
 };
 </script>
@@ -43,5 +48,14 @@ export default {
 
 body {
   background: rebeccapurple;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s;
+}
+.modal-enter,
+.modal-leave-to {
+  opacity: 0;
 }
 </style>

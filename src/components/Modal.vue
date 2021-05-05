@@ -1,48 +1,98 @@
 <template>
-  <transition name="fade">
-    <div class="overlay" v-if="modal.show" v-on:click="closeOnOverlay">
-      <div class="modal">
-        <div class="modal__close" v-on:click="closeModal">
-          <i class="fas fa-times"></i>
-        </div>
-        <h2 class="modal__title">Task Detail</h2>
-        <span class="line"></span>
+  <div class="overlay" v-on:click="closeOnOverlay">
+    <div class="modal">
+      <div class="modal__close" v-on:click="closeModal">
+        <i class="fas fa-times"></i>
+      </div>
+      <h2 class="modal__title">Task Detail</h2>
+      <span class="line"></span>
+      <form v-on:submit.prevent="onSubmit">
         <div class="modal__body">
-          <!-- TODO: finish form  -->
-          <textarea>todoItem.text</textarea>
+          <Input name="textEdit" id="textEdit" v-model="newText" type="input" class="input" />
+          <v-select :options="options" v-model="selected"></v-select>
+          <input name="pending" id="pending" type="checkbox" class="checkbox" v-model="checked" />
+          <label for="pending"> set pending</label>
+          <span v-if="errors.length" class="form__error">Input is empty</span>
         </div>
         <div class="modal__footer">
           <div class="modal__controls">
             <Button class="modal__button modal__button-close" :onClick="closeModal">
               CLOSE
             </Button>
-            <Button class="modal__button modal__button-edit">
+            <Button class="modal__button modal__button-edit" type="submit">
               SAVE CHANGES
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-  </transition>
+  </div>
 </template>
 <script>
 import Button from "./Button";
+import Input from "./Input";
 import { mapState, mapMutations } from "vuex";
 export default {
   components: {
     Button,
+    Input,
   },
   name: "Modal",
+  data: function() {
+    return {
+      options: ["low", "medium", "high"],
+      errors: [],
+      selected: "",
+      checked: false,
+      newText: null,
+    };
+  },
   computed: {
     ...mapState(["modal", "todoItem"]),
   },
   methods: {
-    ...mapMutations(["closeModal"]),
+    ...mapMutations(["closeModal", "updateToDo"]),
     closeOnOverlay(e) {
       if (e.target === e.currentTarget) {
         this.closeModal();
       }
     },
+    onSubmit() {
+      const isValid = this.checkForm();
+      if (isValid) {
+        const payload = {
+          id: this.todoItem.id,
+          text: this.newText,
+          pending: this.checked,
+          priority: this.selected,
+        };
+
+        this.updateToDo(payload);
+        this.closeModal();
+        this.resetForm();
+      }
+    },
+    checkForm: function() {
+      this.errors = [];
+
+      if (!this.newText || !this.selected) {
+        this.errors.push("error");
+        return false;
+      }
+
+      return true;
+    },
+    resetForm: function() {
+      this.selected = "";
+      this.checked = false;
+      this.newText = null;
+    },
+  },
+  created() {
+    const { text, priority, pending } = this.todoItem;
+    this.newText = text;
+    this.selected = priority;
+    this.checked = pending;
   },
 };
 </script>
@@ -78,6 +128,7 @@ export default {
 
   &__body {
     height: 150px;
+    padding: 10px;
   }
 
   &__footer {
@@ -121,18 +172,15 @@ export default {
   }
 }
 
+.input {
+  border: 1px solid #5c6063;
+  border-radius: 5px;
+  padding: 5px;
+  width: 50%;
+}
 .line {
   width: 100%;
   display: block;
   border-bottom: 1px solid #c0c0c0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
