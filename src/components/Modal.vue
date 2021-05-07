@@ -8,10 +8,14 @@
       <span class="line"></span>
       <form v-on:submit.prevent="onSubmit">
         <div class="modal__body">
-          <Input name="textEdit" id="textEdit" v-model="newText" type="input" class="input" />
-          <v-select :options="options" v-model="selected"></v-select>
-          <input name="pending" id="pending" type="checkbox" class="checkbox" v-model="checked" />
-          <label for="pending"> set pending</label>
+          <div class="modal__input-block">
+            <Input name="textEdit" id="textEdit" v-model="newText" type="input" class="input" />
+            <v-select :options="options" v-model="selected" class="modal__select"></v-select>
+          </div>
+          <div class="modal__input-pending">
+            <input name="pending" id="pending" type="checkbox" class="checkbox" v-model="checked" />
+            <label for="pending"> set pending</label>
+          </div>
           <span v-if="errors.length" class="form__error">Input is empty</span>
         </div>
         <div class="modal__footer">
@@ -137,9 +141,27 @@ export default {
     display: flex;
     justify-content: flex-end;
   }
-
+  &__input {
+    &-block {
+      display: flex;
+      justify-content: space-around;
+    }
+    &-pending {
+      margin-top: 10px;
+      margin-left: 10px;
+      max-width: 110px;
+      display: flex;
+      align-items: center;
+      label {
+        margin-left: 5px;
+      }
+    }
+  }
   &__controls {
     flex-basis: 250px;
+  }
+  &__select {
+    width: 170px;
   }
 
   &__button {

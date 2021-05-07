@@ -1,8 +1,7 @@
-/* disable eslint */
-
 import Vue from "vue";
 import Vuex from "vuex";
 import types from "./mutations";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -58,6 +57,7 @@ const store = new Vuex.Store({
       return state.todos.filter((todo) => todo.pending).length;
     },
   },
+  plugins: [createPersistedState()],
 });
 
 export default store;

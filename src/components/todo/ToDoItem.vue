@@ -7,9 +7,9 @@
         <span class="edit" v-on:click="editItem">
           <i class="fas fa-edit"></i>
         </span>
-        <input type="checkbox" id="checkmark" class="todo__checkmark" />
+        <input type="checkbox" id="checkmark" class="todo__checkmark" :disabled="todo.pending" />
         <label class="label-container" for="checkmark" v-on:click="handleComplete">
-          <span class="checkmark">
+          <span class="checkmark" :class="todo.pending && 'checkmark__icon-disabled'">
             <span class="checkmark__icon" :class="todo.completed && 'checkmark__icon-completed'">
               <i class="fas fa-check"></i>
             </span>
@@ -37,7 +37,10 @@ export default {
   methods: {
     ...mapMutations(["setCompleted", "removeToDo", "openModal", "getToDo"]),
     handleComplete() {
-      this.setCompleted({ id: this.todo.id });
+      console.log(this.todo.pending);
+      if (!this.todo.pending) {
+        this.setCompleted({ id: this.todo.id });
+      }
     },
     handleRemove() {
       this.removeToDo({ id: this.todo.id });
@@ -143,6 +146,10 @@ export default {
 
       &-completed {
         display: inline-block;
+      }
+      &-disabled {
+        border-color: #dbd9d9;
+        background-color: rgba(219, 217, 217, 0.3);
       }
     }
   }
